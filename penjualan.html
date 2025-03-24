@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengelolaan Toko Kelontong - Penjualan</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Horizontal Menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">Toko Kelontong</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Halaman Utama</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="penjualan.html">Penjualan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#entri-produk">Entri Produk</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#entri-pelanggan">Entri Pelanggan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#transaksi-penjualan"
+              >Transaksi Penjualan</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#laporan-stok">Laporan Stok</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#laporan-pelanggan">Laporan Pelanggan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#rekapitulasi-penjualan"
+              >Rekapitulasi Penjualan</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <section id="ringkasan-data">
+        <h2 class="mb-4">Ringkasan Data</h2>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Produk dalam Stok</h5>
+                <p class="card-text">100</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Transaksi Hari Ini</h5>
+                <p class="card-text">50</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Pendapatan Hari Ini</h5>
+                <p class="card-text">Rp 5,000,000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Produk Terlaris</h5>
+                <p class="card-text">Produk A</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="formulir-cepat" class="mt-5">
+        <h2 class="mb-4">Formulir Cepat untuk Penjualan</h2>
+        <form id="form-penjualan-cepat" method="POST" action="process.php">
+          <div class="form-group">
+            <label for="pilih-produk">Pilih Produk:</label>
+            <select
+              class="form-control"
+              id="pilih-produk"
+              name="pilih-produk"
+              required
+            >
+              <!-- Options produk akan diisi dari database -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="jumlah">Masukkan Jumlah:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="jumlah"
+              name="jumlah"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="pilih-pelanggan">Pilih Pelanggan:</label>
+            <select
+              class="form-control"
+              id="pilih-pelanggan"
+              name="pilih-pelanggan"
+              required
+            >
+              <!-- Options pelanggan akan diisi dari database -->
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" name="proses-transaksi">
+            Proses Transaksi
+          </button>
+        </form>
+      </section>
+
+      <section id="laporan-penjualan-singkat" class="mt-5">
+        <h2 class="mb-4">Laporan Penjualan Singkat</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <h5>5 Transaksi Terakhir</h5>
+            <ul class="list-group">
+              <!-- Data transaksi terakhir akan diisi dari database -->
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h5>5 Produk Terlaris</h5>
+            <ul class="list-group">
+              <!-- Data produk terlaris akan diisi dari database -->
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="rekapitulasi-penjualan" class="mt-5">
+        <h2 class="mb-4">Rekapitulasi Penjualan Per Hari</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Total Transaksi</th>
+              <th>Pendapatan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            include 'process.php';
+            $rekapitulasi_result->data_seek(0); // Reset pointer to the
+            beginning while ($row = $rekapitulasi_result->fetch_assoc()) { ?>
+            <tr>
+              <td><?php echo $row['tanggal']; ?></td>
+              <td><?php echo $row['total_transaksi']; ?></td>
+              <td>Rp<?php echo $row['pendapatan']; ?></td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="laporan">
+        <h2 class="mb-4">Laporan Stok Produk</h2>
+        <div class="row">
+          <?php
+          $produk_result->data_seek(0); // Reset pointer to the beginning while
+          ($row = $produk_result->fetch_assoc()) { ?>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $row['nama']; ?></h5>
+                <p class="card-text">Harga: Rp<?php echo $row['harga']; ?></p>
+                <p class="card-text">
+                  Stok:
+                  <?php echo $row['stok']; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
+        </div>
+
+        <h2 class="mt-5 mb-4">Laporan Data Pelanggan</h2>
+        <div class="row">
+          <?php
+          $pelanggan_result->data_seek(0); // Reset pointer to the beginning
+          while ($row = $pelanggan_result->fetch_assoc()) { ?>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $row['nama']; ?></h5>
+                <p class="card-text">
+                  Alamat:
+                  <?php echo $row['alamat']; ?>
+                </p>
+                <p class="card-text">
+                  Telepon:
+                  <?php echo $row['telepon']; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
+        </div>
+      </section>
+
+      <section id="tambah-data" class="mt-5">
+        <h2 class="mb-4">Tambah Data Produk dan Pelanggan</h2>
+        <form
+          id="form-tambah-produk"
+          class="mb-4"
+          method="POST"
+          action="process.php"
+        >
+          <div class="form-group">
+            <label for="nama-produk">Nama Produk:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nama-produk"
+              name="nama"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="harga-produk">Harga Produk:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="harga-produk"
+              name="harga"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="stok-produk">Stok Produk:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="stok-produk"
+              name="stok"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" name="add_product">
+            Tambah Produk
+          </button>
+        </form>
+
+        <form id="form-tambah-pelanggan" method="POST" action="process.php">
+          <div class="form-group">
+            <label for="nama-pelanggan">Nama Pelanggan:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nama-pelanggan"
+              name="nama"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="alamat-pelanggan">Alamat Pelanggan:</label>
+            <textarea
+              class="form-control"
+              id="alamat-pelanggan"
+              name="alamat"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="telepon-pelanggan">Telepon Pelanggan:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="telepon-pelanggan"
+              name="telepon"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" name="add_pelanggan">
+            Tambah Pelanggan
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer bg-dark text-white text-center py-3 mt-5">
+      <p>&copy; 2025 Toko Kelontong. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
